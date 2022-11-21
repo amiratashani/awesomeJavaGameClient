@@ -1,8 +1,3 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import entity.*;
-
-import javax.json.Json;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
