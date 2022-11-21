@@ -18,7 +18,8 @@ public class Main {
             URI endpointURI = new URI("ws://" + SERVER_ADDRESS + "/register");
             clientEndPoint = new WebsocketClientEndpoint(endpointURI, latch);
             ClientMessageHandler clientMessageHandler = new ClientMessageHandler();
-            clientEndPoint.addMessageHandler(clientMessageHandler);
+            WriteYourCodeHere writeYourCodeHere = new WriteYourCodeHere();
+            clientEndPoint.addMessageHandler(clientMessageHandler,writeYourCodeHere);
             latch.await();
         } catch (InterruptedException | URISyntaxException e) {
             throw new RuntimeException(e);

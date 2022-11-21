@@ -1,3 +1,6 @@
+import entity.GameAction;
+import entity.GameUpdate;
+
 import javax.websocket.*;
 import java.net.URI;
 import java.util.Arrays;
@@ -10,6 +13,7 @@ public class WebsocketClientEndpoint {
     Session userSession = null;
     CountDownLatch latch;
     private MessageHandler messageHandler;
+    private UserCode userCode;
 
     public WebsocketClientEndpoint(URI endpointURI, CountDownLatch latch) {
         try {
@@ -52,7 +56,7 @@ public class WebsocketClientEndpoint {
     @OnMessage
     public void onMessage(String message) {
         if (this.messageHandler != null) {
-            String clientMessage = this.messageHandler.handleMessage(message);
+            String clientMessage = this.messageHandler.handleMessage(message,userCode);
             sendMessage(clientMessage);
         }
     }
@@ -60,8 +64,9 @@ public class WebsocketClientEndpoint {
     /**
      * register message handler
      */
-    public void addMessageHandler(MessageHandler msgHandler) {
+    public void addMessageHandler(MessageHandler msgHandler,UserCode userCode) {
         this.messageHandler = msgHandler;
+        this.userCode = userCode;
     }
 
     /**
@@ -77,7 +82,11 @@ public class WebsocketClientEndpoint {
      * @author Jiji_Sasidharan
      */
     public interface MessageHandler {
-        String handleMessage(String serverMessage);
+        String handleMessage(String serverMessage,UserCode userCode);
+    }
+
+    public interface UserCode {
+        GameAction writeCodeHere (GameUpdate gameUpdate);
     }
 
     public static class ClientConfigurator extends ClientEndpointConfig.Configurator {

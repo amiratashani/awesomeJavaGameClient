@@ -6,12 +6,12 @@ public class GameObject {
     @SerializedName(value = "Position")
     Vector position;
     @SerializedName(value = "Direction")
-    double direction;
+    Angle direction;
 
     public GameObject() {
     }
 
-    public GameObject(Vector position, double direction) {
+    public GameObject(Vector position, Angle direction) {
         this.position = position;
         this.direction = direction;
     }
@@ -24,11 +24,11 @@ public class GameObject {
         this.position = position;
     }
 
-    public double getDirection() {
+    public Angle getDirection() {
         return direction;
     }
 
-    public void setDirection(double direction) {
+    public void setDirection(Angle direction) {
         this.direction = direction;
     }
 }
