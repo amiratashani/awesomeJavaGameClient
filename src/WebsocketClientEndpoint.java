@@ -31,6 +31,7 @@ public class WebsocketClientEndpoint {
      */
     @OnOpen
     public void onOpen(Session userSession) {
+        System.out.println("onOpen");
         this.userSession = userSession;
     }
 
@@ -42,6 +43,7 @@ public class WebsocketClientEndpoint {
      */
     @OnClose
     public void onClose(Session userSession, CloseReason reason) {
+        System.out.println("onClose");
         this.userSession = null;
         latch.countDown();
     }
@@ -54,6 +56,7 @@ public class WebsocketClientEndpoint {
      */
     @OnMessage
     public void onMessage(String message) {
+        System.out.println("onMessage");
         if (this.messageHandler != null) {
             String clientMessage = this.messageHandler.handleMessage(message,userCode);
             sendMessage(clientMessage);

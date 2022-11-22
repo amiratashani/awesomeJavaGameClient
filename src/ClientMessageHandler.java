@@ -6,19 +6,21 @@ public class ClientMessageHandler implements WebsocketClientEndpoint.MessageHand
     @Override
     public String handleMessage(String serverMessage, WebsocketClientEndpoint.UserCode userCode) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ObjectType.class,new ObjectTypeSerializer());
-        gsonBuilder.registerTypeAdapter(ObjectType.class,new ObjectTypeDeserializer());
-        gsonBuilder.registerTypeAdapter(MoveAction.class,new MoveActionSerializer());
-        gsonBuilder.registerTypeAdapter(MoveAction.class,new MoveActionDeserializer());
-        gsonBuilder.registerTypeAdapter(Angle.class,new AngleDeserializer());
+        gsonBuilder.registerTypeAdapter(ObjectType.class, new ObjectTypeSerializer());
+        gsonBuilder.registerTypeAdapter(ObjectType.class, new ObjectTypeDeserializer());
+        gsonBuilder.registerTypeAdapter(MoveAction.class, new MoveActionSerializer());
+        gsonBuilder.registerTypeAdapter(MoveAction.class, new MoveActionDeserializer());
+        gsonBuilder.registerTypeAdapter(Angle.class, new AngleDeserializer());
         Gson gson = gsonBuilder.create();
         GameUpdate gameUpdate = gson.fromJson(serverMessage, GameUpdate.class);
-
 
         GameAction gameAction = userCode.writeCodeHere(gameUpdate);
 
 
         gameAction.setSeq(gameUpdate.getSeq());
-        return gson.toJson(gameAction);
+        String clientMessage = gson.toJson(gameAction);
+        System.out.println(serverMessage);
+        System.out.println(clientMessage);
+        return clientMessage;
     }
 }
