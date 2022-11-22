@@ -11,12 +11,20 @@ import java.lang.reflect.Type;
 public class ObjectTypeDeserializer implements JsonDeserializer<ObjectType> {
     @Override
     public ObjectType deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        ObjectType objectType = switch (jsonElement.getAsString()) {
-            case "WALL" -> ObjectType.ObjectTypeWall;
-            case "TANK" -> ObjectType.ObjectTypeTank;
-            case "BULLET" -> ObjectType.ObjectTypeBullet;
-            default -> ObjectType.ObjectTypeNothing;
-        };
+        ObjectType objectType;
+        switch (jsonElement.getAsString()) {
+            case "WALL":
+                objectType = ObjectType.ObjectTypeWall;
+                break;
+            case "TANK":
+                objectType = ObjectType.ObjectTypeTank;
+                break;
+            case "BULLET":
+                objectType = ObjectType.ObjectTypeBullet;
+                break;
+            default:
+                objectType = ObjectType.ObjectTypeNothing;
+        }
         return objectType;
     }
 }

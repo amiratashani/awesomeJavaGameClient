@@ -10,15 +10,29 @@ import java.lang.reflect.Type;
 public class MoveActionDeserializer implements JsonDeserializer<MoveAction> {
     @Override
     public MoveAction deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        MoveAction moveAction = switch (jsonElement.getAsString()) {
-            case "FORWARD" -> MoveAction.MoveForward;
-            case "BACKWARD" -> MoveAction.MoveBackward;
-            case "RIGHT" ->MoveAction.MoveRight;
-            case "LEFT" -> MoveAction.MoveLeft;
-            case "TURN_RIGHT" -> MoveAction.TurnRight;
-            case "TURN_LEFT" -> MoveAction.TurnLeft;
-            default -> MoveAction.DontMove;
-        };
+        MoveAction moveAction;
+        switch (jsonElement.getAsString()) {
+            case "FORWARD":
+                moveAction = MoveAction.MoveForward;
+                break;
+            case "BACKWARD":
+                moveAction = MoveAction.MoveBackward;
+                break;
+            case "RIGHT":
+                moveAction = MoveAction.MoveRight;
+                break;
+            case "LEFT":
+                moveAction = MoveAction.MoveLeft;
+                break;
+            case "TURN_RIGHT":
+                moveAction = MoveAction.TurnRight;
+                break;
+            case "TURN_LEFT":
+                moveAction = MoveAction.TurnLeft;
+                break;
+            default:
+                moveAction = MoveAction.DontMove;
+        }
         return moveAction;
     }
 }
